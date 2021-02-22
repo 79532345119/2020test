@@ -9,16 +9,15 @@ export class Controller {
 
     constructor(data: any) {
         this.data = data
-        this.setCategories()
-       /*  this.setGames() */
-        
+        this.setGames()      
     }
 
 // вспомогательный метод. Создает коллекцию объектов игр
-    setGames(): void {
+    setGames(): IGame[] {
         for (const game of this.data.games) {
             this.games.push(new Game(game))
         }
+        return this.games
     }
 
 // вспомогательный метод. Возвращает Merchant.ID по Alias
@@ -77,23 +76,39 @@ export class Controller {
 //- getGamesByCategory() - возвращает массив всех игр переданной категории (slug)
     getGamesByCategory(slug: string): IGame[] {
         let requiredGames: IGame[] = []
-        let categoryId = this.getCategoryId(slug)
+        let categoryId = ""+this.getCategoryId(slug)
         for (const game of this.data.games) {
             let someGame = new Game(game)
-                if( someGame.categoryID.includes(categoryId) ) {
+                if( someGame.CategoryID.includes(categoryId) ) {
                     requiredGames.push(someGame)
                 }
         }
         return requiredGames
     }
 
-    setCategories(): void {
-
-        for (const category of this.data.categories) {
-            this.categories.push(new Category(category))
+//- filterGamesBy() - возвращает массив всех игр по переданным параметрам: провайдер, категория
+    filterGamesBy(alias: string, slug: string): IGame[] {
+        let requiredGames: IGame[] = []
+        let categoryId = ""+this.getCategoryId(slug)
+        let merchantID = this.getMerchantIdByAlias(alias)
+        for (const game of this.data.games) {
+            let someGame = new Game(game)
+                if( someGame.CategoryID.includes(categoryId) && someGame.MerchantID == merchantID) {
+                    requiredGames.push(someGame)
+                }
         }
+        return requiredGames
     }
-    get allCategories(): ICategory[] {
-        return this.categories
+
+//- searchGamesByName() - возвращает массив игр, содержащих переданную строку в названии игры
+    searchGamesByName(str: string): IGame[] {
+        return this.games.filter(game => (game.Name.en.toUpperCase().includes(str.toUpperCase())))
+    }
+
+/* - removeGamesFromLibruary() - удаление игр вообще из списка по заранее заданному
+фильтру. Фильтр включает массив из ID провайдера или ID категории или ID игры, которые надо
+удалить. */
+    removeGamesFromLibruary(merchantId: number = 0, categoryId: string = "", gameId: number = 0): IGame[] {
+        return this.games.filter(game=> (game.MerchantID != merchantId && !game.CategoryID.includes(categoryId) && game.ID != gameId ) )
     }
 }

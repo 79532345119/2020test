@@ -24,6 +24,17 @@ const getJson = (): void => {
                 // - getGamesByCategory() - возвращает массив всех игр переданной категории (slug)
                     console.log(controller.getGamesByCategory("other"))
 
+                // - filterGamesBy() - возвращает массив всех игр по переданным параметрам: провайдер, категория
+                    console.log(controller.filterGamesBy("Microgaming", "other"))
+
+                // - searchGamesByName() - возвращает массив игр, содержащих переданную строку в названии игры
+                    console.log(controller.searchGamesByName("John"));
+
+                /* - removeGamesFromLibruary() - удаление игр вообще из списка по заранее заданному
+                        фильтру. Фильтр включает массив из ID провайдера или ID категории или ID игры, которые надо
+                        удалить. */
+                    console.log(controller.removeGamesFromLibruary(997,"22")) // 1849422 // 1849419
+
                 })
         })
 }

@@ -1,6 +1,6 @@
 export interface IGame {
     AR: string,
-    CategoryID?: number[],
+    CategoryID: string[],
     ID: number,
     IDCountryRestriction: number,
     Image: string,
@@ -8,6 +8,7 @@ export interface IGame {
     MerchantID: number,
     Name: {
         en: string,
+        split():[]
     },
     Sort: number,
     SortPerCategory: any,
@@ -27,7 +28,7 @@ export class Game {
     get AR(): string {
         return this.game.AR;
     };
-    get categoryID(): number[] {
+    get CategoryID(): string[] {
         return this.game.CategoryID;
     };
     get ID(): number {

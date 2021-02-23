@@ -63,6 +63,6 @@ export class Category {
         return this.category.Trans;
     };
     get menuId(): string {
-        return this.category.menuId
-    }
-}
+        return this.category.menuId;
+    };
+};

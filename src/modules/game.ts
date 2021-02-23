@@ -8,7 +8,6 @@ export interface IGame {
     MerchantID: number,
     Name: {
         en: string,
-        split():[]
     },
     Sort: number,
     SortPerCategory: any,

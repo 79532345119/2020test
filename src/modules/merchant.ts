@@ -12,12 +12,12 @@ export class Merchant {
 
     constructor(merchant: IMerchant) {
         this.merchant = merchant;
-    }
+    };
 
     get ID(): number {
-        return this.merchant.ID
-    }
+        return this.merchant.ID;
+    };
     get Alias(): string {
-        return this.merchant.Alias
-    }
-}
+        return this.merchant.Alias;
+    };
+};
